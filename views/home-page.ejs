@@ -1,0 +1,417 @@
+<%- include('partials/description') %>
+
+<% if (typeof user !== 'undefined') { if (user !== 'Admin') { %>
+
+<div class="container flex flex-wrap justify-between">
+    <div class="w-full bg-slate-800 lg:w-[49%]  mt-5 rounded-md p-4">
+        <div class="flex flex-wrap flex-row items-center justify-between">
+            <h2 class="font-semibold text-xl mb-3 text-white">All Files</h2>
+            <button type="button" class="w-1/2 bg-slate-700 py-2 rounded-lg text-white hover:bg-slate-600"
+                data-bs-toggle="modal" data-bs-target="#addFilesModal">
+                <i class="fas fa-plus mr-3"></i>Add
+                Files</button>
+        </div>
+
+        <% if(typeof errorsFile !== 'undefined') { if(errorsFile.length !== 0) {  %>
+        <div class="alert mt-2 bg-red-300 rounded-lg py-5 px-6 mb-3 text-base text-red-700 inline-flex items-center w-full alert-dismissible fade show"
+            role="alert">
+            <%= errorsFile %>
+            <button type="button"
+                class="btn-close box-content w-4 h-4 p-1 ml-auto text-yellow-900 border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-yellow-900 hover:opacity-75 hover:no-underline"
+                data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% } } %>
+
+        <% if(typeof successFile !== 'undefined') { if(successFile.length !== 0) {  %>
+        <div class="alert mt-2 bg-green-300 rounded-lg py-5 px-6 mb-3 text-base text-green-700 inline-flex items-center w-full alert-dismissible fade show"
+            role="alert">
+            <%= successFile %>
+            <button type="button"
+                class="btn-close box-content w-4 h-4 p-1 ml-auto text-yellow-900 border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-yellow-900 hover:opacity-75 hover:no-underline"
+                data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% } }  %>
+
+        <table class="min-w-full text-white table-auto">
+            <thead class="border-b border-slate-500 font-semibold">
+                <tr>
+                    <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                        #
+                    </th>
+                    <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                        Title
+                    </th>
+                    <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                        Uploader
+                    </th>
+                    <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% file.forEach((f, i) => { %>
+                <%- include('partials/table-file-row', { f : f, i : i }) %>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="w-full h-max-[40px]  bg-slate-800 lg:w-[49%]  mt-5 rounded-md p-4">
+        <div class="flex flex-wrap flex-row items-center justify-between">
+            <h2 class="font-semibold text-xl mb-3 text-white">Profile</h2>
+        </div>
+
+        <% if(typeof errorsUpdate !== 'undefined') { if(errorsUpdate.length !== 0) {  %>
+        <div class="alert mt-2 bg-red-300 rounded-lg py-5 px-6 mb-3 text-base text-red-700 inline-flex items-center w-full alert-dismissible fade show"
+            role="alert">
+            <%= errorsUpdate %>
+            <button type="button"
+                class="btn-close box-content w-4 h-4 p-1 ml-auto text-yellow-900 border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-yellow-900 hover:opacity-75 hover:no-underline"
+                data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% } } %>
+
+        <% if(typeof successUpdate !== 'undefined') { if(successUpdate.length !== 0) {  %>
+        <div class="alert mt-2 bg-green-300 rounded-lg py-5 px-6 mb-3 text-base text-green-700 inline-flex items-center w-full alert-dismissible fade show"
+            role="alert">
+            <%= successUpdate %>
+            <button type="button"
+                class="btn-close box-content w-4 h-4 p-1 ml-auto text-yellow-900 border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-yellow-900 hover:opacity-75 hover:no-underline"
+                data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% } }  %>
+
+        <form action="/user?_method=PUT" method="POST">
+            <input type="hidden" name="_id" value="<%= details._id %>">
+            <div class="w-full px-4 mb-8">
+                <label for="id" class="text-base font-thin text-white">Id (NIM)</label>
+                <input type="text" name="nim" id="id" value="<%= details.uid %>"
+                    class="w-full bg-slate-700 text-slate-200 p-3 rounded-md focus:outline-none focus:ring-slate-400 focus:ring-1" />
+            </div>
+            <div class="w-full px-4 mb-8">
+                <label for="id" class="text-base font-thin text-white">Name</label>
+                <input type="text" name="name" id="name" value="<%= details.name %>"
+                    class="w-full bg-slate-700 text-slate-200 p-3 rounded-md focus:outline-none focus:ring-slate-400 focus:ring-1" />
+            </div>
+            <div class="w-full px-4 mb-8">
+                <label for="password" class="text-base font-thin text-white">Password</label>
+                <input type="password" name="password" id="password" class=" w-full bg-slate-700 text-slate-200 p-3 rounded-md focus:outline-none
+                focus:ring-slate-400 focus:ring-1" />
+            </div>
+            <button type="submit" class="w-full bg-slate-700 py-2 rounded-lg text-white hover:bg-slate-600">Update
+                Profile</button>
+        </form>
+
+    </div>
+</div>
+
+<div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto "
+    id="addFilesModal" tabindex="-1" aria-labelledby="addFilesModalTitle" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered relative w-auto pointer-events-none">
+        <div
+            class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-slate-800 bg-clip-padding rounded-md outline-none text-current backdrop-filter backdrop-blur-lg bg-opacity-30">
+            <div
+                class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-700 rounded-t-md backdrop-filter backdrop-blur-lg bg-opacity-30">
+                <h5 class="text-xl font-medium leading-normal text-slate-200" id="exampleModalScrollableLabel">
+                    Add Files
+                </h5>
+                <button type="button"
+                    class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body relative bg-slate-800 p-4">
+                <form action="/pdf" method="POST" enctype="multipart/form-data">
+                    <div class="w-full px-4 mb-8">
+                        <label for="id" class="text-base font-thin text-white">Title</label>
+                        <input type="text" name="title" id="id"
+                            class="w-full bg-slate-700 text-slate-200 p-3 rounded-md focus:outline-none focus:ring-slate-400 focus:ring-1" />
+                    </div>
+                    <div class="w-full my-5 px-4 flex items-center justify-between text-slate-200">
+                        <label for="upload">Upload Your File (*.pdf)</label>
+                        <input
+                            class="file:bg-slate-700 file:border-0 file:text-white file:rounded-md file:p-2 file:hover:bg-slate-600"
+                            type="file" name="upload">
+                    </div>
+            </div>
+            <div
+                class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-700 rounded-b-md bg-slate-800">
+                <button type="submit" class="w-full bg-slate-700 py-2 rounded-lg text-white hover:bg-slate-600">
+                    Add File
+                </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto "
+    id="deleteFileModal" tabindex="-1" aria-labelledby="deleteFileModalTitle" aria-modal="true" role="dialog">
+    <div
+        class="modal-dialog modal-dialog-centered relative w-auto pointer-events-none backdrop-filter backdrop-blur-lg bg-opacity-30">
+        <div
+            class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-slate-800 bg-clip-padding rounded-md outline-none text-current backdrop-filter backdrop-blur-lg bg-opacity-30">
+            <div
+                class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-700 rounded-t-md backdrop-filter backdrop-blur-lg bg-opacity-30">
+                <h5 class="text-xl font-medium leading-normal text-slate-200" id="exampleModalScrollableLabel">
+                    Delete File
+                </h5>
+                <button type="button"
+                    class="btn-close box-content w-4 h-4 p-1 text-white border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body relative bg-slate-800 p-4 backdrop-filter backdrop-blur-lg bg-opacity-30">
+                <p id="text-delete-file" class="text-white text-base"></p>
+                <form action="/pdf?_method=DELETE" method="POST">
+                    <input type="hidden" id="del-file-id" name="id" value="">
+                    <input type="hidden" id="del-file-title" name="title" value="">
+            </div>
+            <div
+                class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-700 rounded-b-md bg-slate-800 backdrop-filter backdrop-blur-lg bg-opacity-30">
+                <button type="submit" class="w-full bg-slate-700 py-2 rounded-lg text-white hover:bg-slate-600"
+                    id="modal-sub-user">
+                    Delete File
+                </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const deleteFile = document.querySelectorAll('.delete-file')
+    const idDeleteFile = document.querySelector('#del-file-id')
+    const nameDeleteFile = document.querySelector('#del-file-title')
+    const deleteTextFile = document.querySelector('#text-delete-file')
+
+    deleteFile.forEach(file => {
+        file.addEventListener('click', e => {
+            e.preventDefault()
+            idDeleteFile.value = file.getAttribute('data-id')
+            nameDeleteFile.value = file.getAttribute('data-name')
+            deleteTextFile.textContent =
+                `Are You Sure Want Delete File With Title ${file.getAttribute('data-name')} ?`
+        })
+    })
+</script>
+
+<% } } %>
+
+<%- include('partials/result-none')  %>
+
+<script defer>
+    "use strict"
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkPlags = document.querySelector('#check')
+        const uploadPlags = document.querySelector('#upload-res')
+        const resultSection = document.querySelector('#result-none')
+        const spinner = document.querySelector('#spinner')
+        const spinnerT = document.querySelector('#loading-number')
+
+        const fileName = document.querySelector('#file-name')
+        const fileSize = document.querySelector('#file-size')
+        const fileChar = document.querySelector('#file-char')
+        const fileWord = document.querySelector('#file-word')
+
+        const textUniq = document.querySelector('#text-uniq')
+        const textPlag = document.querySelector('#text-plag')
+        const barUniq = document.querySelector('#bar-uniq')
+        const barPlag = document.querySelector('#bar-plag')
+        const previewPlag = document.querySelector('#preview')
+
+        const tableFile = document.querySelector('#table-result')
+
+        checkPlags.addEventListener('click', e => {
+            e.preventDefault()
+            if (uploadPlags.files.length === 0) return
+            if (spinner.classList.contains('hidden')) {
+                spinner.classList.remove('hidden')
+                spinner.classList.add('flex')
+            }
+            if (!resultSection.classList.contains('hidden')) resultSection.classList.add('hidden')
+            const formData = new FormData()
+            formData.append('upload-res', uploadPlags.files[0])
+            formData.append('text', document.querySelector('textarea').value)
+            const [file] = uploadPlags.files
+            previewPlag.src = URL.createObjectURL(file)
+
+            fetch('/result-none', {
+                method: 'post',
+                body: formData
+            }).then(res => {
+                return res.json()
+            }).then(async res => {
+                console.time('Testing')
+                resultSection.classList.remove('hidden')
+                console.log('Terima Data')
+                const data = res.data
+                const trainData = res.file
+                const user = res.user
+
+                console.log('Terima Masukka Data ke Alldata')
+                let allData = {}
+                let all = []
+
+                addDict(data, all)
+                trainData.forEach(data => {
+                    addDict(data.text, all)
+                })
+
+                all = [...new Set(all)]
+                all.forEach(e => allData[e] = {})
+
+                console.log('Penokenann')
+                data.split(' ').forEach(e => {
+                    allData[e]['s'] = (allData[e]['s'] || 0) + 1
+                })
+
+                trainData.forEach((str, i) => {
+                    str.text.split(' ').forEach(f => {
+                        allData[f]['s' + (i + 1)] = (allData[f]['s' +
+                            (i + 1)
+                        ] || 0) + 1
+                    })
+                })
+
+                console.log('Perhitungan')
+                let resultAll = []
+
+                let averageSimilarity = 0
+                const keys = Object.keys(allData)
+                for (let i = 0; i < trainData.length; i++) {
+                    let e = 's' + (i + 1)
+                    let aTimesB = 0
+                    let aa = 0
+                    let bb = 0
+
+                    keys.forEach(f => {
+                        const a = allData[f]['s'] || 0
+                        const b = allData[f][e] || 0
+                        aTimesB += a * b
+                        aa += a * a
+                        bb += b * b
+                    })
+
+                    const result = (2 * aTimesB) / (aa + bb)
+                    console.log(
+                        `Similarity Data ${i + 1} Is ${Math.round(result * 100)} %`
+                    )
+                    resultAll.push({
+                        file: trainData[i],
+                        result: Math.round(result * 100)
+                    })
+                    averageSimilarity += Math.round(result * 100)
+                }
+                averageSimilarity /= trainData.length
+                averageSimilarity = Math.round(averageSimilarity)
+                spinnerT.textContent = 'Selesai'
+                await sleep()
+                if (spinner.classList.contains('flex')) {
+                    spinner.classList.remove('flex')
+                    spinner.classList.add('hidden')
+                }
+                resultAll.sort((a, b) => (a.result < b.result) ? 1 : -1)
+                // console.log(resultAll, averageSimilarity)
+                // resultAll = resultAll.filter(result => {
+                //     return result.result > 40
+                // })
+
+                fileName.textContent = 'File Name : ' + res.fileUpload.name
+                fileSize.textContent = 'File Size : ' + formatBytes(res.fileUpload.size)
+                fileChar.textContent = 'Character : ' + separator(res.fileUpload.char)
+                fileWord.textContent = 'Words : ' + separator(res.fileUpload.word)
+
+                textUniq.textContent = 100 - averageSimilarity
+                textPlag.textContent = averageSimilarity
+                barUniq.textContent = 100 - averageSimilarity + ' %'
+                barUniq.style.width = 100 - averageSimilarity + '%'
+                barPlag.textContent = averageSimilarity + ' %'
+                barPlag.style.width = averageSimilarity + '%'
+
+                tableFile.innerHTML = ''
+                resultAll.forEach((res, i) => {
+                    const index = user.findIndex(o => {
+                        return o._id === res.file.uploader
+                    })
+                    const tr = document.createElement('tr')
+                    tr.classList.add('border-b', 'border-slate-500')
+
+                    const tdFileNumber = document.createElement('td')
+                    tdFileNumber.classList.add('px-6', 'py-4', 'whitespace-nowrap',
+                        'text-sm', 'font-medium')
+                    tdFileNumber.textContent = i + 1
+                    tr.appendChild(tdFileNumber)
+
+                    const tdFileName = document.createElement('td')
+                    tdFileName.classList.add('text-sm', 'font-light', 'px-6',
+                        'py-4')
+                    tdFileName.textContent = res.file.name
+                    tr.appendChild(tdFileName)
+
+                    const tdFileUploader = document.createElement('td')
+                    tdFileUploader.classList.add('text-sm', 'font-light', 'px-6',
+                        'py-4')
+                    tdFileUploader.textContent = user[index].name
+                    tr.appendChild(tdFileUploader)
+
+                    const tdFileResult = document.createElement('td')
+                    tdFileResult.classList.add('text-sm', 'font-light', 'px-6',
+                        'py-4', 'whitespace-nowrap')
+                    tdFileResult.textContent = res.result + ' %'
+                    tr.appendChild(tdFileResult)
+
+                    const tdFileShow = document.createElement('td')
+                    tdFileShow.classList.add('text-sm', 'font-light', 'px-6',
+                        'py-4', 'whitespace-nowrap')
+                    const link = document.createElement('a')
+                    link.classList.add('w-full', 'bg-slate-700', 'p-3',
+                        'rounded-lg', 'text-white')
+                    link.textContent = 'Show'
+                    link.href = 'docs/' + res.file.fileName
+                    link.target = '_blank'
+                    tdFileShow.appendChild(link)
+                    tr.appendChild(tdFileShow)
+
+                    tableFile.appendChild(tr)
+                })
+
+                console.timeEnd('Testing')
+
+
+            })
+
+        })
+
+        function sleep() {
+            return new Promise(resolve => setTimeout(resolve, 100))
+        }
+
+        function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 Bytes';
+
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'Kb', 'Mb', 'Gb', 'Tb', 'Pb', 'Eb', 'Zb', 'Yb'];
+
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+
+        function addDict(datax, to) {
+            to.push(...datax.toLowerCase().split(' '))
+        }
+        // function addDict(datax, to) {
+        //     datax.toLowerCase().split(' ').forEach(e => {
+        //         e.trim()
+        //         if (!to.hasOwnProperty(e)) to[e] = {}
+        //     })
+        // }
+
+        function separator(numb) {
+            let str = numb.toString().split(".");
+            str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return str.join(".");
+        }
+    })
+</script>

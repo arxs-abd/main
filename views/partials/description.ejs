@@ -1,0 +1,40 @@
+<!-- Description Section -->
+<section class="mt-10 text-white min-h-8 lg:mt-0">
+    <div class="container text-red-50">
+        <div class="flex flex-wrap items-center">
+            <div class="p-5 w-full h-40 lg:w-1/2 lg:h-full">
+                <% if (typeof user !== 'undefined') { %>
+                <h1 class="font-medium text-xl my-auto">Selamat Datang <%= user %></h1>
+                <% } %>
+                <h1 class="font-bold text-2xl my-auto">Plagiarism Checkers</h1>
+                <p class="text-base">Website Ini Menggunakan Metode Jaccard Coefficient Untuk Mempersentasekan
+                    Kemiripian Dokumen atau Teks Anda
+                    dengan Dokumen yang Terdapat di Database</p>
+            </div>
+            <div class="w-full my-4 lg:w-1/2 p-3">
+                <div class="p-4">
+                    <!-- <form action="/result" method="POST" enctype="multipart/form-data"> -->
+                    <form action="/result-none" method="POST" enctype="multipart/form-data">
+                        <div class="w-full px-4">
+                            <textarea type="text" id="text"
+                                class="w-full bg-slate-800 text-white p-3 rounded-md h-48 focus:border-2 focus:border-slate-700 focus:outline-none resize-none"
+                                name="text" placeholder="Input Your Text"></textarea>
+                        </div>
+                        <div class="w-full my-5 px-4 flex items-center justify-between">
+                            <label for="upload">or Upload Your File (*.pdf)</label>
+                            <input
+                                class="file:bg-slate-800 file:border-0 file:text-white file:rounded-md file:p-2 file:hover:bg-slate-700"
+                                type="file" name="upload-res" id="upload-res">
+                        </div>
+                        <button type="submit" id="check"
+                            class="w-full bg-slate-800 py-2 rounded-lg text-white hover:bg-slate-700">
+                            <i class="fa-solid fa-magnifying-glass mr-2"></i> Check
+                            Plagiarism</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- Description Section -->

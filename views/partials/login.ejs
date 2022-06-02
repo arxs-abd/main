@@ -1,0 +1,33 @@
+<section>
+    <div class="container">
+        <div class="w-full my-4 lg:w-1/2 lg:mx-auto p-3 text-white bg-slate-800 rounded-md">
+            <h2 class="font-semibold text-2xl mb-2 text-center">Login To Application</h2>
+            <div class="p-4">
+                <% if(errors.length !== 0) {  %>
+                <div class="alert bg-red-300 rounded-lg py-5 px-6 mb-3 text-base text-red-700 inline-flex items-center w-full alert-dismissible fade show"
+                    role="alert">
+                    <strong class="mx-1">NIM </strong> or
+                    <strong class="mx-1">Password </strong> is Wrong
+                    <button type="button"
+                        class="btn-close box-content w-4 h-4 p-1 ml-auto text-yellow-900 border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-yellow-900 hover:opacity-75 hover:no-underline"
+                        data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% }  %>
+                <form action="/login" method="POST">
+                    <div class="w-full px-4 mb-8">
+                        <label for="id" class="text-base font-thin text-white">Id (NIM)</label>
+                        <input type="text" name="nim" id="id"
+                            class="w-full bg-slate-700 text-slate-200 p-3 rounded-md focus:outline-none focus:ring-slate-400 focus:ring-1" />
+                    </div>
+                    <div class="w-full px-4 mb-8">
+                        <label for="password" class="text-base font-thin text-white">Password</label>
+                        <input type="password" name="password" id="password" class=" w-full bg-slate-700 text-slate-200 p-3 rounded-md focus:outline-none
+                        focus:ring-slate-400 focus:ring-1" />
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-slate-700 py-2 rounded-lg text-white hover:bg-slate-600">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

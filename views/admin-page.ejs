@@ -1,0 +1,242 @@
+<%- include('partials/description') %>
+
+<%- include('partials/table-details') %>
+
+<%- include('partials/add-user') %>
+
+<%- include('partials/add-files') %>
+
+<script defer>
+    // User Modal
+    const userIdInput = document.querySelector('#id_user')
+    const userIdName = document.querySelector('#username_user')
+    const userIdNim = document.querySelector('#nim_user')
+    const userIdPass = document.querySelector('#password_user')
+    // const userChange = document.querySelectorAll('.user-change')
+    const modalUser = document.querySelector('#modal-user')
+    const userModalButton = document.querySelector('#modal-sub-user')
+    const formUserModal = document.querySelector('#form-user')
+
+    // const deleteUser = document.querySelectorAll('.delete-user')
+    const idDeleteUser = document.querySelector('#del-user-id')
+    const nameDeleteUser = document.querySelector('#del-user-name')
+    const deleteText = document.querySelector('#text-delete')
+    // User Modal
+
+    // File Modal
+    const deleteFile = document.querySelectorAll('.delete-file')
+    const idDeleteFile = document.querySelector('#del-file-id')
+    const nameDeleteFile = document.querySelector('#del-file-title')
+    const deleteTextFile = document.querySelector('#text-delete-file')
+    // File Modal
+
+    // File Modal
+    deleteFile.forEach(file => {
+        file.addEventListener('click', e => {
+            e.preventDefault()
+            idDeleteFile.value = file.getAttribute('data-id')
+            nameDeleteFile.value = file.getAttribute('data-name')
+            deleteTextFile.textContent =
+                `Are You Sure Want Delete File With Title ${file.getAttribute('data-name')} ?`
+        })
+    })
+    // File Modal
+
+    // User Modal
+    modalUser.addEventListener('click', (e) => {
+        formUserModal.action = '/admin-user'
+        e.preventDefault()
+        userIdInput.value = ''
+        userIdNim.value = ''
+        userIdName.value = ''
+        userIdPass.disabled = false
+        userModalButton.textContent = 'Add User'
+    })
+
+
+    // deleteUser.forEach(user => {
+    //     user.addEventListener('click', e => {
+    //         e.preventDefault()
+    //         idDeleteUser.value = user.getAttribute('data-id')
+    //         nameDeleteUser.value = user.getAttribute('data-name')
+    //         deleteText.textContent =
+    //             `Are You Sure Want Delete ${user.getAttribute('data-name')} ?`
+
+    //     })
+    // })
+    // userChange.forEach(user => {
+    //     user.addEventListener('click', (e) => {
+    //         e.preventDefault()
+    //         formUserModal.action = '/admin-user?_method=PUT'
+    //         userIdInput.value = user.getAttribute('data-id')
+    //         userIdName.value = user.getAttribute('data-name')
+    //         userIdNim.value = user.getAttribute('data-uid')
+    //         userIdPass.disabled = true
+    //         userModalButton.textContent = 'Update User'
+    //     })
+    // })
+
+    // User Modal
+
+    // User Tabel
+    const tableUser = document.querySelector('#table-user')
+    const navigationUser = document.querySelectorAll('.page-item')
+    let currentPage = 0
+    let totalPage = 0
+    const limit = 5
+    updateUserTable(currentPage)
+
+    async function updateUserTable(page) {
+        const result = await getApi(`/user?limit=${limit}&pages=${page}`)
+        const data = result.data
+        currentPage = result.currentPage
+        totalPage = result.totalPages
+        tableUser.innerHTML = ''
+        let number = (currentPage * limit) + 1
+        for (const user of data) {
+            tableUser.innerHTML += `
+                <tr class="border-b border-slate-500">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">${number} </td>
+                    <td class="text-sm font-light px-6 py-4">
+                        ${user.name}
+                    </td>
+                    <td class="text-sm font-light px-6 py-4 whitespace-nowrap">
+                        ${user.uid}
+                    </td>
+                    <td class="text-sm font-light px-6 py-4 whitespace-nowrap">
+                        <a href="" data-id="${user._id}" data-uid="${user.uid}" data-name="${user.name}"
+                            class="w-full mx-1 bg-slate-700 p-3 rounded-lg text-white hover:bg-yellow-500 user-change"
+                            data-bs-toggle="modal" data-bs-target="#addUserModal">
+                            <i class="fa-solid fa-pencil"></i>
+                        </a>
+                        <a href="" class="w-full mx-1 bg-slate-700 p-3 rounded-lg text-white hover:bg-red-500 delete-user"
+                            data-id="${user._id}" data-name="${user.name}" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                `
+            number++
+        }
+        const userChange = document.querySelectorAll('.user-change')
+        userChange.forEach(user => {
+            user.addEventListener('click', (e) => {
+                e.preventDefault()
+                formUserModal.action = '/admin-user?_method=PUT'
+                userIdInput.value = user.getAttribute('data-id')
+                userIdName.value = user.getAttribute('data-name')
+                userIdNim.value = user.getAttribute('data-uid')
+                userIdPass.disabled = true
+                userModalButton.textContent = 'Update User'
+            })
+        })
+
+        const deleteUser = document.querySelectorAll('.delete-user')
+        deleteUser.forEach(user => {
+            user.addEventListener('click', e => {
+                e.preventDefault()
+                idDeleteUser.value = user.getAttribute('data-id')
+                nameDeleteUser.value = user.getAttribute('data-name')
+                deleteText.textContent =
+                    `Are You Sure Want Delete ${user.getAttribute('data-name')} ?`
+
+            })
+        })
+
+        let newCurrentPage = getNumberPage(currentPage, totalPage)
+
+        for (const nav of navigationUser) {
+            if (nav.children[0].ariaLabel === 'Previous') {
+                nav.children[0].dataset.page = (currentPage - 1)
+                if (nav.children[0].dataset.click === 'false') {
+                    pagingButtonListener(nav.children[0], 'prev')
+                }
+            } else if (nav.children[0].ariaLabel === 'Next') {
+                nav.children[0].dataset.page = (currentPage + 1)
+                if (nav.children[0].dataset.click === 'false') {
+                    pagingButtonListener(nav.children[0], 'next')
+                }
+            } else if (nav.children[0].ariaLabel === 'First') {
+                if (nav.children[0].dataset.click === 'false') {
+                    nav.addEventListener('click', e => {
+                        if (currentPage === 0) return e.preventDefault()
+                        updatePage(e, 1)
+                    })
+                    nav.children[0].dataset.click = 'true'
+                }
+            } else if (nav.children[0].ariaLabel === 'Last') {
+                if (nav.children[0].dataset.click === 'false') {
+                    nav.addEventListener('click', e => {
+                        if (currentPage === totalPage - 1) return e.preventDefault()
+                        updatePage(e, totalPage)
+                    })
+                    nav.children[0].dataset.click = 'true'
+                }
+            } else {
+                nav.children[0].textContent = newCurrentPage
+                if (currentPage + 1 === newCurrentPage) {
+                    removeIfExist(nav.children[0], 'bg-transparent')
+                    addIfNotExist(nav.children[0], 'bg-gray-900')
+                } else {
+                    removeIfExist(nav.children[0], 'bg-gray-900')
+                    addIfNotExist(nav.children[0], 'bg-transparent')
+                }
+
+                if (newCurrentPage > totalPage) nav.style.display = 'none'
+                // console.log(nav.children[0].dataset.click)
+                if (nav.children[0].dataset.click === 'false') {
+                    pagingButtonListener(nav.children[0])
+                }
+                newCurrentPage++
+            }
+
+        }
+
+    }
+
+    function pagingButtonListener(nav, option = '') {
+        nav.addEventListener('click', (e) => {
+            e.preventDefault()
+            if (option === 'next')
+                if (currentPage === (totalPage - 1)) return
+            if (option === 'prev')
+                if (currentPage === 0) return
+            updatePage(e, (Number(nav.dataset.page) + 1) || Number(nav.textContent))
+        })
+        nav.dataset.click = 'true'
+    }
+
+    function updatePage(e, page) {
+        e.preventDefault()
+        console.log(page - 1)
+        updateUserTable(page - 1)
+    }
+
+    async function getApi(url) {
+        const response = await fetch(url)
+        const result = await response.json()
+        return result
+    }
+
+    function getNumberPage(currentPage, totalPage) {
+        if (currentPage == 0) {
+            return currentPage + 1
+        }
+        if (currentPage + 1 == totalPage && totalPage > 2) {
+            return currentPage - 1
+        }
+        return currentPage
+    }
+
+    function prevent(e) {
+        e.preventDefault()
+    }
+
+    function removeIfExist(removeItem, removeClass) {
+        if (removeItem.classList.contains(removeClass)) removeItem.classList.remove(removeClass)
+    }
+
+    function addIfNotExist(addItem, addClass) {
+        if (!addItem.classList.contains(addClass)) addItem.classList.add(addClass)
+    }
+</script>

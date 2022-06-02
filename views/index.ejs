@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlagCheck</title>
+    <link rel="stylesheet" href="csss/output.css">
+    <script src="https://kit.fontawesome.com/524dd30d0c.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-dark">
+
+    <!-- Nav Section -->
+    <header
+        class="bg-slate-900 top-0 left-0 w-full flex items-center p-2 backdrop-filter backdrop-blur-lg bg-opacity-30 border-b border-gray-800 sticky">
+        <div class="container">
+            <div class="flex items-center justify-between">
+                <div class="px-4">
+                    <a href="" class="block font-bold lg:text-xl text-white py-4">Plagiarsm Checker</a>
+                </div>
+                <nav class="text-white font-normal">
+                    <ul class="flex">
+                        <li class="mx-1 lg:mx-3 p-2 hover:bg-slate-700 hover:rounded-xl">Beranda</li>
+                        <li class="mx-1 lg:mx-3 p-2 hover:bg-slate-700 hover:rounded-xl ">Tentang Saya</li>
+                        <li class="mx-1 lg:mx-3 py-2 px-4 bg-slate-800  text-white rounded-xl hover:bg-slate-700">Masuk
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- Nav Section -->
+
+    <!-- Description Section -->
+    <section class="mt-10 text-white min-h-8 lg:mt-0">
+        <div class="container">
+            <div class="flex flex-wrap items-center">
+                <div class="p-5 w-full h-40 lg:w-1/2 lg:h-full">
+                    <h1 class="font-bold text-2xl my-auto">Plagiarism Checker</h1>
+                    <p class="text-base">Website Ini Menggunakan Metode Jaccard Coefficient Untuk Mempersentasekan
+                        Kemiripian Dokumen Anda
+                        dengan Dokumen yang Terdapat di Database</p>
+                </div>
+                <div class="w-full my-4 lg:w-1/2 p-3">
+                    <div class="p-4">
+                        <form action="">
+                            <div class="w-full px-4">
+                                <textarea type="text" id="text"
+                                    class="w-full bg-slate-800 text-white p-3 rounded-md h-48 focus:border-2 focus:border-slate-700 focus:outline-none resize-none"
+                                    placeholder="Input Your Text"></textarea>
+                            </div>
+                            <div class="w-full my-5 px-4 flex items-center justify-between">
+                                <label for="upload">or Upload Your File (*.pdf)</label>
+                                <input
+                                    class="file:bg-slate-800 file:border-0 file:text-white file:rounded-md file:p-2 file:hover:bg-slate-700"
+                                    type="file" name="upload">
+                            </div>
+                            <button type="submit"
+                                class="w-full bg-slate-800 py-2 rounded-lg text-white hover:bg-slate-700"> <i
+                                    class="fa-solid fa-magnifying-glass mr-2"></i> Check
+                                Plagiarism</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Description Section -->
+
+    <!-- Result -->
+
+    <section class="pt-20 text-white">
+        <div class="container">
+            <div class="w-full px-4 text-center">
+                <h1 class="font-semibold text-2xl mb-2">Result</h1>
+            </div>
+            <div class="flex flex-wrap justify-between">
+                <div class="w-full lg:w-[49%] bg-slate-800 rounded-md p-4">
+                    <h2 class="font-semibold text-xl mb-3">Details</h2>
+                    <div class="flex">
+                        <p class="text-base w-1/2">Character : 2000</p>
+                        <p class="text-base w-1/2">Words : 50</p>
+                    </div>
+                </div>
+                <div class="w-full mt-5 lg:w-[49%] lg:mt-0 bg-slate-800 rounded-md p-4">
+                    <h2 class="font-semibold text-xl mb-3">Plagirsm Percentage</h2>
+                    <div class="flex">
+                        <p class="text-base w-1/2">Unique : 40%</p>
+                        <p class="text-base w-1/2">Plagiarism : 60%</p>
+                    </div>
+                    <div class="w-full mt-3 flex bg-slate-900 rounded-full">
+                        <div
+                            class="bg-slate-700 text-s font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full w-[60%]">
+                            60%
+                        </div>
+                        <div class="text-s font-medium text-blue-100 text-center p-0.5 leading-none w-[40%]">
+                            40%
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full bg-slate-800 mt-5 rounded-md p-4">
+                    <h2 class="font-semibold text-xl mb-3">File With High Similarity</h2>
+                    <table class="min-w-full text-white table-auto">
+                        <thead class="border-b border-slate-500 font-semibold">
+                            <tr>
+                                <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                                    #
+                                </th>
+                                <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                                    Title Pdf
+                                </th>
+                                <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                                    Similarity
+                                </th>
+                                <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                                    Show
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-slate-500">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">1</td>
+                                <td class="text-sm font-light px-6 py-4">
+                                    Analisa Hasil USaha Dalam Rangka Menyambut Hari H
+                                </td>
+                                <td class="text-sm font-light px-6 py-4 whitespace-nowrap">
+                                    50 %
+                                </td>
+                                <td class="text-sm font-light px-6 py-4 whitespace-nowrap">
+                                    <a href="" class="w-full bg-slate-700 p-3 rounded-lg text-white">
+                                        Show
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-slate-500">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">2</td>
+                                <td class="text-sm font-light px-6 py-4">
+                                    Analisa Hasil USaha Dalam Rangka Menyambut Hari H
+                                </td>
+                                <td class="text-sm font-light px-6 py-4 whitespace-nowrap">
+                                    50 %
+                                </td>
+                                <td class="text-sm font-light px-6 py-4 whitespace-nowrap">
+                                    <a href="" class="w-full bg-slate-700 p-3 rounded-lg text-white">
+                                        Show
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Result -->
+
+    <!-- User and File View -->
+
+    <section>
+        <div class="container">
+            <div class="flex flex-wrap justify-between">
+                <div class="w-full bg-slate-800 lg:w-[49%]  mt-5 rounded-md p-4">
+                    <h2 class="font-semibold text-xl mb-3 text-white">All User</h2>
+                    <table class="min-w-full text-white table-auto">
+                        <thead class="border-b border-slate-500 font-semibold">
+                            <tr>
+                                <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                                    #
+                                </th>
+                                <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                                    Username
+                                </th>
+                                <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                                    Id (NIM)
+                                </th>
+                                <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-slate-500">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">1</td>
+                                <td class="text-sm font-light px-6 py-4">
+                                    Aris Akhyar Abdillah
+                                </td>
+                                <td class="text-sm font-light px-6 py-4 whitespace-nowrap">
+                                    H071171505
+                                </td>
+                                <td class="text-sm font-light px-6 py-4 whitespace-nowrap">
+                                    <a href=""
+                                        class="w-full mx-1 bg-slate-700 p-3 rounded-lg text-white hover:bg-yellow-500">
+                                        <i class="fa-solid fa-pencil"></i>
+                                    </a>
+                                    <a href=""
+                                        class="w-full mx-1 bg-slate-700 p-3 rounded-lg text-white hover:bg-red-500">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="w-full bg-slate-800 lg:w-[49%]  mt-5 rounded-md p-4">
+                    <h2 class="font-semibold text-xl mb-3 text-white">All Files</h2>
+                    <table class="min-w-full text-white table-auto">
+                        <thead class="border-b border-slate-500 font-semibold">
+                            <tr>
+                                <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                                    #
+                                </th>
+                                <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                                    Title
+                                </th>
+                                <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                                    Uploader
+                                </th>
+                                <th scope="col" class="text-sm font-medium px-6 py-4 text-left">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-slate-500">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">1</td>
+                                <td class="text-sm font-light px-6 py-4">
+                                    Analisa Hasil Usaha Dalam Rangka Menyambut Hari H
+                                </td>
+                                <td class="text-sm font-light px-6 py-4 whitespace-nowrap">
+                                    H071171505
+                                </td>
+                                <td class="text-sm font-light px-6 py-4 whitespace-nowrap">
+                                    <a href=""
+                                        class="w-full mx-1 bg-slate-700 p-3 rounded-lg text-white hover:bg-green-500">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+                                    <a href=""
+                                        class="w-full mx-1 bg-slate-700 p-3 rounded-lg text-white hover:bg-red-500">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User and File View -->
+
+    <!-- Login -->
+    <section>
+        <div class="container">
+            <div class="w-full my-4 lg:w-1/2 lg:mx-auto p-3 text-white bg-slate-800 rounded-md">
+                <h2 class="font-semibold text-2xl mb-2 text-center">Login To Application</h2>
+                <div class="p-4">
+                    <form action="">
+                        <div class="w-full px-4 mb-8">
+                            <label for="id" class="text-base font-thin text-white">Id (NIM)</label>
+                            <input type="text" id="id"
+                                class="w-full bg-slate-700 text-slate-200 p-3 rounded-md focus:outline-none focus:ring-slate-400 focus:ring-1" />
+                        </div>
+                        <div class="w-full px-4 mb-8">
+                            <label for="password" class="text-base font-thin text-white">Password</label>
+                            <input type="password" id="password" class=" w-full bg-slate-700 text-slate-200 p-3 rounded-md focus:outline-none
+                            focus:ring-slate-400 focus:ring-1" />
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-slate-700 py-2 rounded-lg text-white hover:bg-slate-600">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Login -->
+
+    <!-- Footer -->
+    <footer class="bg-dark pt-10 pb-5">
+        <div class="container">
+            <div class="w-full pt-10 border-t border-slate-700">
+                <div class="flex items-center justify-center mb-5">
+                    <!-- Whatsapp -->
+                    <a href="https://wa.me/+6282195008936" target="_blank"
+                        class="w-9 h-9 mr-2 flex justify-center items-center">
+                        <svg role="img" width="25" class="fill-white hover:fill-slate-700" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <title>WhatsApp</title>
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100000053025926" target="_blank"
+                        class="w-9 h-9 mr-3 flex justify-center items-center">
+                        <svg role="img" width="25" viewBox="0 0 24 24" class="fill-white hover:fill-slate-700"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <title>Facebook</title>
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+                    <a href="https://github.com/arxs-abd/arxs-abd" target="_blank"
+                        class="w-9 h-9 mr-3 flex justify-center items-center">
+                        <svg role="img" width="25" class="fill-white hover:fill-slate-700" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <title>GitHub</title>
+                            <path
+                                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                        </svg>
+                    </a>
+                </div>
+                <p class="font-medium text-xs text-slate-500 text-center">
+                    © 2022 Copyrigth : <span class="font-semibold">Aris Akhyar Abdillah</span>.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Footer -->
+</body>
+
+</html>
