@@ -1,6 +1,4 @@
-const { ObjectID } = require('bson')
 const {check, validationResult} = require('express-validator')
-const { ObjectId } = require('mongodb')
 const {User} = require('../models/user')
 
 const toLogin = [
@@ -12,7 +10,7 @@ const toLogin = [
             if (errors.isEmpty()) return next()
             if (errors.array()[0].value === '030400' && errors.array()[0].param === 'nim') return next()
             req.flash('errors', 'Your Nim or Password is Wrong')
-            res.redirect('/login')
+            return res.redirect('/login')
         }
     ],
 ]
@@ -29,7 +27,7 @@ const toAddUser = [
         const errors = validationResult(req)
         if (errors.isEmpty()) return next()
         req.flash('errors-add-user', 'Failed to Add New User')
-        res.redirect('/admin')
+        return res.redirect('/admin')
     }
 ]
 
@@ -44,7 +42,7 @@ const toUpdateUser = [
         const errors = validationResult(req)
         if (errors.isEmpty()) return next()
         req.flash('errors-add-user', 'Failed to Update User')
-        res.redirect('/admin')
+        return res.redirect('/admin')
     }
 ]
 
@@ -64,7 +62,7 @@ const toUpdateUserByUser = [
         const errors = validationResult(req)
         if (errors.isEmpty()) return next()
         req.flash('errors-update-user', 'Failed to Update User')
-        res.redirect('/')
+        return res.redirect('/')
     }
 ]
 
